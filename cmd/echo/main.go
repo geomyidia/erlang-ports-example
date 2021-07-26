@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
-	port.SetupApp()
+	port.SetupLogging()
+	port.SetupRandom()
 	port.ProcessPortMessages(echo.ProcessEchoCommand)
 }
