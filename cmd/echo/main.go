@@ -15,6 +15,7 @@ import (
 func main() {
 	app.SetupLogging()
 	log.Info("Starting up Go Port example ...")
+	log.Infof("Running version: %s", app.VersionedBuildString())
 	app.SetupRandom()
 	ctx, cancel := app.SignalWithContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
