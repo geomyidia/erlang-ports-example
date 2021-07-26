@@ -1,6 +1,10 @@
 package main
 
 import (
+	"context"
+	"sync"
+	"syscall"
+
 	log "github.com/sirupsen/logrus"
 
 	"github.com/geomyidia/erlang-port-examples/internal/app"
@@ -9,8 +13,27 @@ import (
 )
 
 func main() {
-	log.Info("Starting up Go Port example ...")
 	app.SetupLogging()
+	log.Info("Starting up Go Port example ...")
 	app.SetupRandom()
-	port.ProcessPortMessages(echo.ProcessEchoCommand)
+	ctx, cancel := app.SignalWithContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer cancel()
+	var wg sync.WaitGroup
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		port.ProcessPortMessages(ctx, echo.ProcessEchoCommand)
+	}()
+
+	// Listen for the interrupt signal.
+	<-ctx.Done()
+
+	// Restore default behavior on the interrupt signal and notify user of shutdown.
+	cancel()
+	log.Info("Shutting down gracefully, press Ctrl+C again to force")
+
+	log.Info("Waiting for wait groups to finish ...")
+	wg.Wait()
+	log.Info("Application shutdown complete.")
 }

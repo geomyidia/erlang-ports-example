@@ -10,8 +10,8 @@ import (
 // SetupApp ...
 func SetupLogging() {
 	logger.SetupLogging(&logger.ZyLogOptions{
-		Colored:      false,
-		Level:        "fatal",
+		Colored:      true,
+		Level:        "debug",
 		Output:       "stderr",
 		ReportCaller: true,
 	})
