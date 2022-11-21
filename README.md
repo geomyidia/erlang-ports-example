@@ -1,4 +1,4 @@
-# erlang-port-examples
+# erlang-port-example
 
 This project demonstrates an application that may be managed by an Erlang supervision tree, communicating with Erlang via the Erlang Ports protocol (essentially the FFI for Erlang).
 
