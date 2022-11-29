@@ -1,7 +1,7 @@
 VERSION = $(shell cat VERSION)
 DVCS_HOST = github.com
 ORG = geomyidia
-PROJ = erlang-port-examples
+PROJ = erlang-ports-example
 FQ_PROJ = $(DVCS_HOST)/$(ORG)/$(PROJ)
 
 LD_VERSION = -X $(FQ_PROJ)/internal/app.version=$(VERSION)
@@ -28,4 +28,5 @@ clean:
 	@rm -f ./bin/*
 
 deps:
+	@go mod tidy
 	@go get -u golang.org/x/sys
