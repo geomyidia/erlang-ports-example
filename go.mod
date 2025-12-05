@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/geomyidia/erlcmd v0.2.0
 	github.com/geomyidia/zylog v0.1.5
-	github.com/sirupsen/logrus v1.8.1
+	github.com/sirupsen/logrus v1.8.3
 )
 
 require (
